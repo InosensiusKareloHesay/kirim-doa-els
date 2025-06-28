@@ -15,8 +15,10 @@ export default function Home() {
     if (username === 'admin' && password === 'admin') {
       setSuccess('Login berhasil!');
       setTimeout(() => {
-        // Use absolute path that works with basePath
-        window.location.href = '/kirim-doa-els/dashboard/';
+        // Detect if we're on GitHub Pages or local
+        const isGitHubPages = window.location.hostname === 'inosensiuskarelohesay.github.io';
+        const basePath = isGitHubPages ? '/kirim-doa-els' : '';
+        window.location.href = `${basePath}/dashboard/`;
       }, 1000);
     } else {
       setError('Username atau password salah!');

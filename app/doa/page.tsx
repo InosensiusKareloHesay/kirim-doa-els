@@ -110,7 +110,15 @@ export default function DoaPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#e9f0f7', display: 'flex', flexDirection: 'column' }}>
-      <Navbar title="List Doa" showBack onBack={() => router.push('/kirim-doa-els/dashboard/')} onLogout={() => router.push('/kirim-doa-els/')} />
+      <Navbar title="List Doa" showBack onBack={() => {
+        const isGitHubPages = window.location.hostname === 'inosensiuskarelohesay.github.io';
+        const basePath = isGitHubPages ? '/kirim-doa-els' : '';
+        router.push(`${basePath}/dashboard/`);
+      }} onLogout={() => {
+        const isGitHubPages = window.location.hostname === 'inosensiuskarelohesay.github.io';
+        const basePath = isGitHubPages ? '/kirim-doa-els' : '';
+        router.push(`${basePath}/`);
+      }} />
       {/* Filter & Reset Button */}
       <div style={{ padding: '32px 40px 0 40px', display: 'flex', alignItems: 'center', gap: 12 }}>
         <button onClick={() => setShowModal(true)} style={{ padding: '12px 32px', borderRadius: 24, background: '#3570b6', color: '#fff', fontWeight: 500, fontSize: 16, border: 'none', cursor: 'pointer' }}>Filter</button>
