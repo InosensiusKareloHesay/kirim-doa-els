@@ -15,7 +15,7 @@ export default function Home() {
     if (username === 'admin' && password === 'admin') {
       setSuccess('Login berhasil!');
       setTimeout(() => {
-        window.location.href = '/dashboard';
+        window.location.href = process.env.NODE_ENV === 'production' ? '/kirim-doa-els/dashboard/' : '/dashboard';
       }, 1000);
     } else {
       setError('Username atau password salah!');
