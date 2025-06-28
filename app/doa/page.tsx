@@ -3,8 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../Navbar';
 
+interface DoaItem {
+  nama: string;
+  doa: string;
+  tanggal: string;
+}
+
 // Data dummy rentang 15/6 - 5/7, jumlah acak 1-5 per tanggal
-const dummyData = [
+const dummyData: DoaItem[] = [
   { nama: 'Dewi', doa: 'Mohon kesehatan keluarga.', tanggal: '2025-06-15' },
   { nama: 'Budi', doa: 'Mohon kelancaran usaha.', tanggal: '2025-06-15' },
   { nama: 'Sinta', doa: 'Mohon jodoh.', tanggal: '2025-06-16' },
@@ -67,8 +73,8 @@ const dummyData = [
   { nama: 'Joko', doa: 'Mohon ketenangan hati.', tanggal: '2025-07-05' },
 ];
 
-function groupByTanggal(data: any[]): Record<string, any[]> {
-  return data.reduce((acc: Record<string, any[]>, curr: any) => {
+function groupByTanggal(data: DoaItem[]): Record<string, DoaItem[]> {
+  return data.reduce((acc: Record<string, DoaItem[]>, curr: DoaItem) => {
     acc[curr.tanggal] = acc[curr.tanggal] || [];
     acc[curr.tanggal].push(curr);
     return acc;
@@ -86,7 +92,6 @@ export default function DoaPage() {
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
   const [filter, setFilter] = useState({ from: '', to: '' });
-  const [filteredData, setFilteredData] = useState(dummyData);
   const [grouped, setGrouped] = useState(groupByTanggal(dummyData));
 
   useEffect(() => {
@@ -100,13 +105,12 @@ export default function DoaPage() {
       });
     }
     console.log(data)
-    setFilteredData(data);
     setGrouped(groupByTanggal(data));
   }, [filter]);
 
   return (
     <div style={{ minHeight: '100vh', background: '#e9f0f7', display: 'flex', flexDirection: 'column' }}>
-      <Navbar title="List Doa" showBack onBack={() => router.push('/dashboard')} onLogout={() => router.push('/login')} />
+      <Navbar title="List Doa" showBack onBack={() => router.push('/dashboard')} onLogout={() => router.push('/')} />
       {/* Filter & Reset Button */}
       <div style={{ padding: '32px 40px 0 40px', display: 'flex', alignItems: 'center', gap: 12 }}>
         <button onClick={() => setShowModal(true)} style={{ padding: '12px 32px', borderRadius: 24, background: '#3570b6', color: '#fff', fontWeight: 500, fontSize: 16, border: 'none', cursor: 'pointer' }}>Filter</button>
@@ -136,10 +140,10 @@ export default function DoaPage() {
       {/* List Doa */}
       <div style={{ marginTop: 32, padding: '0 40px', flex: 1, overflowY: 'auto' }}>
         {Object.keys(grouped).length === 0 && <div style={{ color: '#888', marginTop: 16 }}>Tidak ada doa.</div>}
-        {Object.entries(grouped).map(([tanggal, list]: [string, any[]]) => (
+        {Object.entries(grouped).map(([tanggal, list]: [string, DoaItem[]]) => (
           <div key={tanggal} style={{ marginBottom: 32 }}>
             <div style={{ fontWeight: 600, color: '#111', marginBottom: 12, fontSize: 17 }}>{formatDateDMY(tanggal)}</div>
-            {list.map((item: any, idx: number) => (
+            {list.map((item: DoaItem, idx: number) => (
               <div key={idx} style={{ background: '#fff', borderRadius: 12, padding: '18px 24px', marginBottom: 12, boxShadow: '0 1px 6px #e0e7ef', color: '#222' }}>
                 <div style={{ fontWeight: 600, fontSize: 16 }}>{item.nama}</div>
                 <div style={{ fontSize: 15, marginTop: 4 }}>{item.doa}</div>

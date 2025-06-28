@@ -3,10 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../Navbar';
 
-const previewDoa = [
-  { nama: 'Dentiel Manat', doa: 'Mohon kesehatan dan rejeki.' },
-];
-
 export default function DashboardPage() {
   const router = useRouter();
   const [showMenu, setShowMenu] = useState(false);
@@ -30,7 +26,7 @@ export default function DashboardPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#e9f0f7', display: 'flex', flexDirection: 'column' }}>
-      <Navbar title="Admin Home" onLogout={() => router.push('/login')} />
+      <Navbar title="Admin Home" onLogout={() => router.push('/')} />
       {/* Bagian tengah biru dengan background cover, benar-benar menempel ke atas */}
       <div style={{
         background: `#1a357a url('/img/Bg-Dashboard.jpg') center center / cover no-repeat`,

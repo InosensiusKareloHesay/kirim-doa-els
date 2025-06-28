@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   title: string;
@@ -12,7 +11,6 @@ interface NavbarProps {
 export default function Navbar({ title, showBack, onBack, onLogout }: NavbarProps) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
