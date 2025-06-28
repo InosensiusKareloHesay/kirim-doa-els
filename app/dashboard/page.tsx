@@ -26,7 +26,10 @@ export default function DashboardPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#e9f0f7', display: 'flex', flexDirection: 'column' }}>
-      <Navbar title="Admin Home" onLogout={() => router.push(process.env.NODE_ENV === 'production' ? '/kirim-doa-els/' : '/')} />
+      <Navbar title="Admin Home" onLogout={() => {
+        const basePath = process.env.NODE_ENV === 'production' ? '/kirim-doa-els' : '';
+        router.push(`${basePath}/`);
+      }} />
       {/* Bagian tengah biru dengan background cover, benar-benar menempel ke atas */}
       <div style={{
         background: `#1a357a url('/img/Bg-Dashboard.jpg') center center / cover no-repeat`,
@@ -40,7 +43,10 @@ export default function DashboardPage() {
       }} />
       {/* Tombol bawah */}
       <div className="dashboard-btn-group" style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: '40px 0', gap: 24, flexDirection: 'row' }}>
-        <button className="dashboard-btn" onClick={() => router.push(process.env.NODE_ENV === 'production' ? '/kirim-doa-els/doa/' : '/doa')} style={{ flex: 1, minWidth: 180, maxWidth: 320, padding: '14px 0', borderRadius: 32, background: '#1a357a', color: '#fff', fontWeight: 600, fontSize: 20, border: 'none', cursor: 'pointer', transition: 'background 0.2s' }}>Lihat List Doa</button>
+        <button className="dashboard-btn" onClick={() => {
+          const basePath = process.env.NODE_ENV === 'production' ? '/kirim-doa-els' : '';
+          router.push(`${basePath}/doa/`);
+        }} style={{ flex: 1, minWidth: 180, maxWidth: 320, padding: '14px 0', borderRadius: 32, background: '#1a357a', color: '#fff', fontWeight: 600, fontSize: 20, border: 'none', cursor: 'pointer', transition: 'background 0.2s' }}>Lihat List Doa</button>
         <button className="dashboard-btn" style={{ flex: 1, minWidth: 180, maxWidth: 320, padding: '14px 0', borderRadius: 32, background: '#3570b6', color: '#fff', fontWeight: 600, fontSize: 20, border: 'none', cursor: 'pointer', transition: 'background 0.2s' }}>Download List Doa</button>
       </div>
       <style>{`
